@@ -1,4 +1,4 @@
-package com.example.attendance;
+package com.example.attendance.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
