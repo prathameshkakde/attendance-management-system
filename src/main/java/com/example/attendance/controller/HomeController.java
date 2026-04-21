@@ -1,13 +1,21 @@
 package com.example.attendance.controller;
 
 import com.example.attendance.model.Student;
+import com.example.attendance.service.StudentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Arrays;
+
 import java.util.List;
 
 @RestController
 public class HomeController {
+
+    private final StudentService studentService;
+
+    // Constructor injection
+    public HomeController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @GetMapping("/")
     public String home() {
@@ -16,15 +24,11 @@ public class HomeController {
 
     @GetMapping("/student")
     public Student getStudent() {
-        return new Student(1L, "John Doe", "john@example.com");
+        return studentService.getStudent();
     }
 
     @GetMapping("/students")
     public List<Student> getStudents() {
-
-        return Arrays.asList(
-                new Student(1L, "John Doe", "john@example.com"),
-                new Student(2L, "Jane Smith", "jane@example.com")
-                );
+        return studentService.getStudents();
     }
 }
