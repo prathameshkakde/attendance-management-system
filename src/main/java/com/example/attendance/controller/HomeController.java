@@ -26,6 +26,11 @@ public class HomeController {
         return studentService.getStudent();
     }
 
+    @GetMapping("/student/{id}")
+    public Student getStudentById(@PathVariable Long id){
+        return studentService.getStudentById(id);
+    }
+
     @GetMapping("/students")
     public List<Student> getStudents() {
         return studentService.getStudents();

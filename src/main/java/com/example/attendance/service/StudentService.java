@@ -20,8 +20,11 @@ public class StudentService {
     }
 
     public Student getStudent() {
-
         return new Student(1L, "John Doe", "john@example.com");
+    }
+
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id).orElse(null);
     }
 
     public List<Student> getStudents() {
