@@ -4,8 +4,6 @@ import com.example.attendance.model.Student;
 import com.example.attendance.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,9 +25,6 @@ public class StudentService {
     }
 
     public List<Student> getStudents() {
-        return Arrays.asList(
-                new Student(1L, "John Doe", "john@example.com"),
-                new Student(2L, "Jane Smith", "jane@example.com")
-        );
+        return studentRepository.findAll();
     }
 }
