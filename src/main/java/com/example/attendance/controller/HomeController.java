@@ -2,8 +2,7 @@ package com.example.attendance.controller;
 
 import com.example.attendance.model.Student;
 import com.example.attendance.service.StudentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +29,10 @@ public class HomeController {
     @GetMapping("/students")
     public List<Student> getStudents() {
         return studentService.getStudents();
+    }
+
+    @PostMapping("/student")
+    public Student saveStudent(@RequestBody Student student) {
+        return studentService.saveStudent(student);
     }
 }
