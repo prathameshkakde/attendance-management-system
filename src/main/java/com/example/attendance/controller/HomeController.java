@@ -1,8 +1,11 @@
 package com.example.attendance.controller;
 
 import com.example.attendance.model.Student;
+import com.example.attendance.model.ErrorResponse;
 import com.example.attendance.service.StudentService;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -27,8 +30,14 @@ public class HomeController {
     }
 
     @GetMapping("/student/{id}")
-    public Student getStudentById(@PathVariable Long id){
-        return studentService.getStudentById(id);
+    public ResponseEntity<?> getStudentById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(studentService.getStudentById(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(
+                    new ErrorResponse(e.getMessage())
+            );
+        }
     }
 
     @GetMapping("/students")
