@@ -29,6 +29,7 @@ public class HomeController {
         return studentService.getStudent();
     }
 
+    // API to get Student by id
     @GetMapping("/student/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable Long id) {
         try {
@@ -40,6 +41,20 @@ public class HomeController {
         }
     }
 
+    // API to update student
+    @PutMapping("/student/{id}")
+    public ResponseEntity<?> updateStudent(
+            @PathVariable Long id,
+            @RequestBody Student student ) {
+
+        try {
+            return ResponseEntity.ok(studentService.updateStudent(id, student));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
+        }
+    }
+
+    // API to get all students
     @GetMapping("/students")
     public List<Student> getStudents() {
         return studentService.getStudents();
