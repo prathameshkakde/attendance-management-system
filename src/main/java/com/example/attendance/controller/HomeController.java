@@ -4,12 +4,13 @@ import com.example.attendance.model.Student;
 import com.example.attendance.model.ErrorResponse;
 import com.example.attendance.service.StudentService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class HomeController {
 
     private final StudentService studentService;
@@ -19,20 +20,32 @@ public class HomeController {
         this.studentService = studentService;
     }
 
+    // Show students in UI
+    @GetMapping("/students-view")
+    public String showStudents(Model model) {
+
+        model.addAttribute("students", studentService.getStudents());
+
+        return "students";
+    }
+
     // Create student
     @PostMapping("/students")
+    @ResponseBody
     public Student saveStudent(@RequestBody Student student) {
         return studentService.saveStudent(student);
     }
 
     // Get all students
     @GetMapping("/students")
+    @ResponseBody
     public List<Student> getStudents() {
         return studentService.getStudents();
     }
 
     // Get a student by id
     @GetMapping("/students/{id}")
+    @ResponseBody
     public ResponseEntity<?> getStudentById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(studentService.getStudentById(id));
@@ -45,6 +58,7 @@ public class HomeController {
 
     // Update a student by id
     @PutMapping("/students/{id}")
+    @ResponseBody
     public ResponseEntity<?> updateStudent(
             @PathVariable Long id,
             @RequestBody Student student ) {
@@ -58,6 +72,7 @@ public class HomeController {
 
     // Delete a student by id
     @DeleteMapping("/students/{id}")
+    @ResponseBody
     public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
         try {
             studentService.deleteStudent(id);

@@ -17,7 +17,7 @@ public class SecurityConfig {
 
                 // Define which URLs are allowed
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/students", "/students/*").permitAll()
+                        .requestMatchers("/", "/students", "/students/*", "/students-view").permitAll()
                         .anyRequest().authenticated()
                 )
 
