@@ -28,20 +28,21 @@ public class HomeController {
 
         return "students";
     }
-    
-    // Create student at UI (From form to Student object)
+
+    // Create student api
+    @PostMapping("/students")
+    @ResponseBody
+    public Student saveStudent(@RequestBody Student student) {
+        return studentService.saveStudent(student);
+    }
+
+    // Create student UI
     @PostMapping("/students/add")
     public String addStudent(Student student) {
         studentService.saveStudent(student);
         return "redirect:/students-view";
     }
 
-    // Create student
-    @PostMapping("/students")
-    @ResponseBody
-    public Student saveStudent(@RequestBody Student student) {
-        return studentService.saveStudent(student);
-    }
 
     // Get all students
     @GetMapping("/students")
@@ -77,7 +78,7 @@ public class HomeController {
         }
     }
 
-    // Delete a student by id
+    // Delete a student by id ui
     @DeleteMapping("/students/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
@@ -87,5 +88,12 @@ public class HomeController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
         }
+    }
+
+    // Delete a student by id api
+    @PostMapping("/students/delete/{id}")
+    public String deleteStudentFromUI(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+        return "redirect:/students-view";
     }
 }
