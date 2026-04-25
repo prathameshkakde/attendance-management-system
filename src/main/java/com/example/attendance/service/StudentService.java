@@ -44,4 +44,12 @@ public class StudentService {
 
         return studentRepository.save(existingStudent);
     }
+
+    // Delete Student
+    public void deleteStudent(Long id) {
+
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+
+        studentRepository.delete(student);
+    }
 }

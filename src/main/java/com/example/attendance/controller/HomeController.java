@@ -64,4 +64,14 @@ public class HomeController {
     public Student saveStudent(@RequestBody Student student) {
         return studentService.saveStudent(student);
     }
+
+    @DeleteMapping("/student/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
+        try {
+            studentService.deleteStudent(id);
+            return ResponseEntity.ok("Student deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
+        }
+    }
 }
