@@ -19,18 +19,20 @@ public class HomeController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "Hello, Attendance System is Running!";
+    // Create student
+    @PostMapping("/students")
+    public Student saveStudent(@RequestBody Student student) {
+        return studentService.saveStudent(student);
     }
 
-    @GetMapping("/student")
-    public Student getStudent() {
-        return studentService.getStudent();
+    // Get all students
+    @GetMapping("/students")
+    public List<Student> getStudents() {
+        return studentService.getStudents();
     }
 
-    // API to get Student by id
-    @GetMapping("/student/{id}")
+    // Get a student by id
+    @GetMapping("/students/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(studentService.getStudentById(id));
@@ -41,8 +43,8 @@ public class HomeController {
         }
     }
 
-    // API to update student
-    @PutMapping("/student/{id}")
+    // Update a student by id
+    @PutMapping("/students/{id}")
     public ResponseEntity<?> updateStudent(
             @PathVariable Long id,
             @RequestBody Student student ) {
@@ -54,18 +56,8 @@ public class HomeController {
         }
     }
 
-    // API to get all students
-    @GetMapping("/students")
-    public List<Student> getStudents() {
-        return studentService.getStudents();
-    }
-
-    @PostMapping("/student")
-    public Student saveStudent(@RequestBody Student student) {
-        return studentService.saveStudent(student);
-    }
-
-    @DeleteMapping("/student/{id}")
+    // Delete a student by id
+    @DeleteMapping("/students/{id}")
     public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
         try {
             studentService.deleteStudent(id);

@@ -15,26 +15,22 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    // Save student
     public Student saveStudent(Student student) {
         return studentRepository.save(student);
     }
 
-    // Get a Student
-    public Student getStudent() {
-        return new Student(1L, "John Doe", "john@example.com");
-    }
-
-    // Get Student by ID
-    public Student getStudentById(Long id) {
-        return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
-    }
-
-    // Get all Student
+    // Get all student
     public List<Student> getStudents() {
         return studentRepository.findAll();
     }
 
-    // Update Student
+    // Get a student by id
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+    }
+
+    // Update a student by id
     public Student updateStudent(Long id, Student updatedStudent) {
 
         Student existingStudent = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
@@ -45,7 +41,7 @@ public class StudentService {
         return studentRepository.save(existingStudent);
     }
 
-    // Delete Student
+    // Delete a student by id
     public void deleteStudent(Long id) {
 
         Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
