@@ -28,6 +28,13 @@ public class HomeController {
 
         return "students";
     }
+    
+    // Create student at UI (From form to Student object)
+    @PostMapping("/students/add")
+    public String addStudent(Student student) {
+        studentService.saveStudent(student);
+        return "redirect:/students-view";
+    }
 
     // Create student
     @PostMapping("/students")
