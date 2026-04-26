@@ -1,23 +1,95 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Students List</title>
+    <title>Students Management</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        a button:hover {
+            background-color: #1e7e34;
+        }
+
+        .delete-btn {
+            background-color: red;
+        }
+
+        .edit-btn {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .edit-btn:hover {
+            background-color: #1e7e34;
+        }
+    </style>
 </head>
+
 <body>
 
 <h2>Add Student</h2>
 
 <form action="/students/add" method="post">
-    Name: <input type="text" name="name" required /><br><br>
-    Email: <input type="email" name="email" required /><br><br>
-    <button type="submit">Add Student</button>
+    <input type="text" name="name" placeholder="Enter name" required />
+    <input type="email" name="email" placeholder="Enter email" required />
+    <button type="submit">Add</button>
 </form>
 
 <hr>
 
 <h2>Students List</h2>
 
-<table border="1">
+<table>
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -30,8 +102,12 @@
         <td th:text="${student.name}"></td>
         <td th:text="${student.email}"></td>
         <td>
-            <form th:action="@{'/students/delete/' + ${student.id}}" method="post">
-                <button type="submit">Delete</button>
+            <a th:href="@{'/students/edit/' + ${student.id}}" class="edit-btn">
+                Edit
+            </a>
+
+            <form th:action="@{'/students/delete/' + ${student.id}}" method="post" style="display:inline; margin-left:10px;">
+                <button class="delete-btn" type="submit">Delete</button>
             </form>
         </td>
     </tr>

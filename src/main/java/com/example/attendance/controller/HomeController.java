@@ -64,7 +64,7 @@ public class HomeController {
         }
     }
 
-    // Update a student by id
+    // Update a student by id api
     @PutMapping("/students/{id}")
     @ResponseBody
     public ResponseEntity<?> updateStudent(
@@ -76,6 +76,21 @@ public class HomeController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
         }
+    }
+
+    // Show edit form
+    @GetMapping("/students/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Student student = studentService.getStudentById(id);
+        model.addAttribute("student", student);
+        return "edit-student";
+    }
+
+    // Update a student by id ui
+    @PostMapping("/students/update/{id}")
+    public String updateStudentFromUI(@PathVariable Long id, Student student) {
+        studentService.updateStudent(id, student);
+        return "redirect:/students-view";
     }
 
     // Delete a student by id ui
