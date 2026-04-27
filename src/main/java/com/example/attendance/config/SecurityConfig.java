@@ -24,7 +24,8 @@ public class SecurityConfig {
                                 "/students-view",
                                 "/students/delete/*",
                                 "/students/edit/*",
-                                "/students/update/*"
+                                "/students/update/*",
+                                "/attendance/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
