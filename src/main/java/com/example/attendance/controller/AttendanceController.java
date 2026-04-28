@@ -42,4 +42,13 @@ public class AttendanceController {
     public List<Attendance> getAttendanceByDate(@PathVariable LocalDate date) {
         return attendanceService.getAttendanceByDate(date);
     }
+
+    // View attendance by student and date
+    @GetMapping("/student/{id}/date/{date}")
+    public List<Attendance> getAttendanceByStudentAndDate(
+            @PathVariable Long id,
+            @PathVariable LocalDate date) {
+
+        return attendanceService.getAttendanceByStudentAndDate(id, date);
+    }
 }
