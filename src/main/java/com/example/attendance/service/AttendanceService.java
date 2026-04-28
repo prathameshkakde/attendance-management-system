@@ -35,4 +35,9 @@ public class AttendanceService {
     public List<Attendance> getAllAttendance() {
         return attendanceRepository.findAll();
     }
+
+    // Get attendance by student
+    public List<Attendance> getAttendanceByStudent(Long studentId) {
+        return attendanceRepository.findByStudentId(studentId);
+    }
 }

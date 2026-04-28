@@ -29,4 +29,10 @@ public class AttendanceController {
     public List<Attendance> getAllAttendance() {
         return attendanceService.getAllAttendance();
     }
+
+    // View attendance for a student by id api
+    @GetMapping("/student/{id}")
+    public List<Attendance> getAttendanceByStudent(@PathVariable Long id) {
+        return attendanceService.getAttendanceByStudent(id);
+    }
 }
