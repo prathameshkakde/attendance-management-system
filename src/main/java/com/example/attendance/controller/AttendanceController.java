@@ -6,6 +6,8 @@ import com.example.attendance.service.AttendanceService;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/attendance")
 public class AttendanceController {
@@ -16,9 +18,15 @@ public class AttendanceController {
         this.attendanceService = attendanceService;
     }
 
-    // API to mark attendance
+    // Mark attendance api
     @PostMapping("/mark")
     public Attendance markAttendance(@RequestParam Long studentId, @RequestParam String status) {
         return attendanceService.markAttendance(studentId, status);
+    }
+
+    // View attendance api
+    @GetMapping("/all")
+    public List<Attendance> getAllAttendance() {
+        return attendanceService.getAllAttendance();
     }
 }
