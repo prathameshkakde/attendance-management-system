@@ -4,6 +4,7 @@ import com.example.attendance.model.Student;
 import com.example.attendance.model.ErrorResponse;
 import com.example.attendance.service.StudentService;
 import com.example.attendance.service.AttendanceService;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -143,5 +144,23 @@ public class HomeController {
         model.addAttribute("summary", attendanceService.getAttendanceSummary(studentId));
 
         return "attendance-summary";
+    }
+
+    // Show attendance marking page
+    @GetMapping("/mark-attendance")
+    public String showMarkAttendancePage(Model model) {
+
+        model.addAttribute("students", studentService.getStudents());
+
+        return "mark-attendance";
+    }
+
+    // Handle attendance submission
+    @PostMapping("/mark-attendance")
+    public String markAttendance(@RequestParam Long studentId, @RequestParam String status) {
+
+        attendanceService.markAttendance(studentId, status);
+
+        return "redirect:/students-view";
     }
 }

@@ -28,7 +28,8 @@ public class SecurityConfig {
                                 "/attendance/**",
                                 "/attendance-summary/*",
                                 "/attendance-summary",
-                                "/attendance-summary-result"
+                                "/attendance-summary-result",
+                                "/mark-attendance"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
