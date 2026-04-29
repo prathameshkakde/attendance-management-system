@@ -1,6 +1,7 @@
 package com.example.attendance.service;
 
 import com.example.attendance.model.Attendance;
+import com.example.attendance.model.AttendanceSummary;
 import com.example.attendance.model.Student;
 import com.example.attendance.repository.StudentRepository;
 import com.example.attendance.repository.AttendanceRepository;
@@ -49,5 +50,21 @@ public class AttendanceService {
     // Get attendance by student and date
     public List<Attendance> getAttendanceByStudentAndDate(Long studentId, LocalDate date) {
         return attendanceRepository.findByStudentIdAndDate(studentId, date);
+    }
+
+    // Get attendance summary by student
+    public AttendanceSummary getAttendanceSummary(Long studentId) {
+
+        List<Attendance> records = attendanceRepository.findByStudentId(studentId);
+
+        long totalPresent = records.stream().filter(a -> "Present".equalsIgnoreCase(a.getStatus())).count();
+
+        long totalAbsent = records.stream().filter(a -> "Absent".equalsIgnoreCase(a.getStatus())).count();
+
+        long total = totalPresent + totalAbsent;
+
+        double percentage = total == 0 ? 0 : (totalPresent * 100.0) / total;
+
+        return new AttendanceSummary(totalPresent, totalAbsent, percentage);
     }
 }

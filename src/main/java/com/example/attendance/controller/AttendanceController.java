@@ -1,6 +1,7 @@
 package com.example.attendance.controller;
 
 import com.example.attendance.model.Attendance;
+import com.example.attendance.model.AttendanceSummary;
 import com.example.attendance.repository.AttendanceRepository;
 import com.example.attendance.service.AttendanceService;
 import org.springframework.security.core.parameters.P;
@@ -50,5 +51,11 @@ public class AttendanceController {
             @PathVariable LocalDate date) {
 
         return attendanceService.getAttendanceByStudentAndDate(id, date);
+    }
+
+    // Get attendance summary by student
+    @GetMapping("/summary/{id}")
+    public AttendanceSummary getSummary(@PathVariable Long id) {
+        return attendanceService.getAttendanceSummary(id);
     }
 }
