@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Attendance Summary</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Attendance Summary</h2>
+
+    <p>Total Present: <span th:text="${summary.totalPresent}"></span></p>
+    <p>Total Absent: <span th:text="${summary.totalAbsent}"></span></p>
+    <p>Percentage: <span th:text="${summary.percentage}"></span>%</p>
+</div>
+
+</body>
+</html>

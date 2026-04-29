@@ -3,6 +3,7 @@ package com.example.attendance.controller;
 import com.example.attendance.model.Student;
 import com.example.attendance.model.ErrorResponse;
 import com.example.attendance.service.StudentService;
+import com.example.attendance.service.AttendanceService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,12 @@ public class HomeController {
 
     private final StudentService studentService;
 
+    private final AttendanceService attendanceService;
+
     // Constructor injection
-    public HomeController(StudentService studentService) {
+    public HomeController(StudentService studentService, AttendanceService attendanceService) {
         this.studentService = studentService;
+        this.attendanceService = attendanceService;
     }
 
     // Show students in UI
@@ -110,5 +114,15 @@ public class HomeController {
     public String deleteStudentFromUI(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return "redirect:/students-view";
+    }
+
+
+    // Show attendance summary in UI
+    @GetMapping("/attendance-summary/{id}")
+    public String showAttendanceSummary(@PathVariable Long id, Model model) {
+
+        model.addAttribute("summary", attendanceService.getAttendanceSummary(id));
+
+        return "attendance-summary";
     }
 }
