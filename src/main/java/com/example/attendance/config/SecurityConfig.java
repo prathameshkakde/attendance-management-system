@@ -26,7 +26,9 @@ public class SecurityConfig {
                                 "/students/edit/*",
                                 "/students/update/*",
                                 "/attendance/**",
-                                "/attendance-summary/*"
+                                "/attendance-summary/*",
+                                "/attendance-summary",
+                                "/attendance-summary-result"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

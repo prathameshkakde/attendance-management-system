@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 @Controller
 public class HomeController {
@@ -122,6 +123,24 @@ public class HomeController {
     public String showAttendanceSummary(@PathVariable Long id, Model model) {
 
         model.addAttribute("summary", attendanceService.getAttendanceSummary(id));
+
+        return "attendance-summary";
+    }
+
+    // Show student selection in UI
+    @GetMapping("/attendance-summary")
+    public String showStudentSelection(Model model) {
+
+        model.addAttribute("students", studentService.getStudents());
+
+        return "attendance-selection";
+    }
+
+    // Handle selected studen and show summary
+    @GetMapping("/attendance-summary-result")
+    public String showSummary(@RequestParam Long studentId, Model model) {
+
+        model.addAttribute("summary", attendanceService.getAttendanceSummary(studentId));
 
         return "attendance-summary";
     }

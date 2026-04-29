@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Select Student</title>
+</head>
+
+<body>
+
+<h2>Select Student</h2>
+
+<form action="/attendance-summary-result" method="get">
+
+    <select name="studentId">
+        <option th:each="student : ${students}"
+                th:value="${student.id}"
+                th:text="${student.name}">
+        </option>
+    </select>
+
+    <button type="submit">View Summary</button>
+</form>
+
+</body>
+</html>
