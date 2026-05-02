@@ -1,13 +1,45 @@
 package com.example.attendance.config;
 
+import com.example.attendance.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
 
+    // Inject CustomUserDetailsService
+    private final CustomUserDetailsService customUserDetailsService;
+
+    // Constructor injection
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
+
+    // Password encoder bean
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
+
+    // Authentication provider
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+
+        DaoAuthenticationProvider authProvider =
+                new DaoAuthenticationProvider(customUserDetailsService);
+
+        authProvider.setPasswordEncoder(passwordEncoder());
+
+        return authProvider;
+    }
+
+    // Security configuration
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -15,27 +47,24 @@ public class SecurityConfig {
                 // Disable CSRF
                 .csrf(csrf -> csrf.disable())
 
-                // Define which URLs are allowed
+                // URL access rules
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login").permitAll()
+
                         .requestMatchers(
-                                "/",
-                                "/students",
-                                "/students/*",
                                 "/students-view",
+                                "/mark-attendance",
+                                "/attendance-summary/**",
                                 "/students/delete/*",
                                 "/students/edit/*",
-                                "/students/update/*",
-                                "/attendance/**",
-                                "/attendance-summary/*",
-                                "/attendance-summary",
-                                "/attendance-summary-result",
-                                "/mark-attendance"
-                        ).permitAll()
-                        .anyRequest().authenticated()
+                                "/students/update/*"
+                        ).authenticated()
+
+                        .anyRequest().permitAll()
                 )
 
-                // Enable default login page
-                .formLogin(form -> form.disable());
+                // Enable login page
+                .formLogin(Customizer.withDefaults());
 
         return http.build();
     }
