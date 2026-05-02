@@ -64,7 +64,9 @@ public class SecurityConfig {
                 )
 
                 // Enable login page
-                .formLogin(Customizer.withDefaults());
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/students-view", true)
+                );
 
         return http.build();
     }
