@@ -163,4 +163,10 @@ public class HomeController {
 
         return "redirect:/students-view";
     }
+
+    // Access denied page
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "access-denied";
+    }
 }

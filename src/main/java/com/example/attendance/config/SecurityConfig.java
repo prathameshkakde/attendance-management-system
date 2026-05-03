@@ -74,8 +74,11 @@ public class SecurityConfig {
                 // Enable login page
                 .formLogin(form -> form
                         .defaultSuccessUrl("/students-view", true)
-                );
+                )
 
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/access-denied")
+                );
         return http.build();
     }
 }
