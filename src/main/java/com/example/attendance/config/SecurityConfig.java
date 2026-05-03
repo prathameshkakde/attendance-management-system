@@ -49,17 +49,25 @@ public class SecurityConfig {
 
                 // URL access rules
                 .authorizeHttpRequests(auth -> auth
+
+                        // Public pages
                         .requestMatchers("/login").permitAll()
 
+                        // Admin only
                         .requestMatchers(
-                                "/students-view",
                                 "/mark-attendance",
-                                "/attendance-summary/**",
                                 "/students/delete/*",
                                 "/students/edit/*",
                                 "/students/update/*"
-                        ).authenticated()
+                        ).hasRole("ADMIN")
 
+                        // Admin + Student
+                        .requestMatchers(
+                                "/students-view",
+                                "/attendance-summary/**"
+                        ).hasAnyRole("ADMIN", "STUDENT")
+
+                        // Everything else
                         .anyRequest().permitAll()
                 )
 
