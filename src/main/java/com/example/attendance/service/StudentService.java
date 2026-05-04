@@ -1,6 +1,7 @@
 package com.example.attendance.service;
 
 import com.example.attendance.model.Student;
+import com.example.attendance.repository.AttendanceRepository;
 import com.example.attendance.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,11 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    private final AttendanceRepository attendanceRepository;
+
+    public StudentService(StudentRepository studentRepository, AttendanceRepository attendanceRepository) {
         this.studentRepository = studentRepository;
+        this.attendanceRepository = attendanceRepository;
     }
 
     // Save student
@@ -44,8 +48,8 @@ public class StudentService {
     // Delete a student by id
     public void deleteStudent(Long id) {
 
-        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+        attendanceRepository.deleteByStudentId(id);
 
-        studentRepository.delete(student);
+        studentRepository.deleteById(id);
     }
 }

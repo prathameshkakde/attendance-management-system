@@ -4,7 +4,7 @@ import com.example.attendance.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,10 +56,17 @@ public class SecurityConfig {
                         // Admin only
                         .requestMatchers(
                                 "/mark-attendance",
+                                "/students/add"
+                        ).hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST,
                                 "/students/delete/*",
-                                "/students/edit/*",
                                 "/students/update/*"
                         ).hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.GET,
+                                "/students/edit/*")
+                        .hasRole("ADMIN")
 
                         // Admin + Student
                         .requestMatchers(
