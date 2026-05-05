@@ -1,22 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Edit Student</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            width: 400px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
+
 <body>
 
-<h2>Edit Student</h2>
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<form th:action="@{'/students/update/' + ${student.id}}" method="post">
+<div class="container">
 
-    Name:
-    <input type="text" name="name" th:value="${student.name}" required /><br><br>
+    <div class="card">
+        <h2>Edit Student</h2>
 
-    Email:
-    <input type="email" name="email" th:value="${student.email}" required /><br><br>
+        <form th:action="@{'/students/update/' + ${student.id}}" method="post">
 
-    <button type="submit">Update</button>
-</form>
+            <input type="text" name="name"
+                   th:value="${student.name}" required />
+
+            <input type="email" name="email"
+                   th:value="${student.email}" required />
+
+            <br>
+
+            <button type="submit">Update</button>
+
+        </form>
+    </div>
+
+</div>
 
 </body>
 </html>
