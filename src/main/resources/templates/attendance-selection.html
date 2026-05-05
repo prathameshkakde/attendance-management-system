@@ -1,30 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Select Student</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        select, button {
+            padding: 8px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div style="margin-bottom: 20px; font-size: 18px;">
-    <a href="/students-view" style="margin-right: 10px;">Students</a>
-    <a href="/mark-attendance" style="margin-right: 10px;">Mark Attendance</a>
-    <a href="/attendance-summary">Summary</a>
+<!-- ✅ Navbar Fragment -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div class="card">
+        <h2>Select Student</h2>
+
+        <form action="/attendance-summary-result" method="get">
+
+            <select name="studentId">
+                <option th:each="student : ${students}"
+                        th:value="${student.id}"
+                        th:text="${student.name}">
+                </option>
+            </select>
+
+            <br>
+
+            <button type="submit">View Summary</button>
+        </form>
+    </div>
 </div>
-
-<h2>Select Student</h2>
-
-<form action="/attendance-summary-result" method="get">
-
-    <select name="studentId">
-        <option th:each="student : ${students}"
-                th:value="${student.id}"
-                th:text="${student.name}">
-        </option>
-    </select>
-
-    <button type="submit">View Summary</button>
-</form>
 
 </body>
 </html>

@@ -1,0 +1,54 @@
+<div th:fragment="navbar"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <style>
+        .navbar {
+            background: #1e293b;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-right {
+            font-size: 14px;
+            color: #cbd5f5;
+        }
+
+        .nav-link {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #38bdf8;
+        }
+    </style>
+
+    <div class="navbar">
+
+        <div class="nav-left">
+            <a href="/students-view" class="nav-link">Students</a>
+
+            <span sec:authorize="hasRole('ADMIN')">
+                <a href="/mark-attendance" class="nav-link">Mark Attendance</a>
+            </span>
+
+            <a href="/attendance-summary" class="nav-link">Summary</a>
+        </div>
+
+        <div class="nav-right">
+            Logged in
+        </div>
+
+    </div>
+
+</div>

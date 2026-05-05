@@ -100,7 +100,7 @@
 
 <body>
 
-<div class="navbar">
+<div th:replace="~{fragments/navbar :: navbar}">
     <a href="/students-view">Students</a>
 
     <span sec:authorize="hasRole('ADMIN')">

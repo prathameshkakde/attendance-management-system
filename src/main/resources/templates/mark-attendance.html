@@ -1,41 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Mark Attendance</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
 
-<div style="margin-bottom: 20px; font-size: 18px;">
-    <a href="/students-view" style="margin-right: 10px;">Students</a>
-    <a href="/mark-attendance" style="margin-right: 10px;">Mark Attendance</a>
-    <a href="/attendance-summary">Summary</a>
+<!-- ✅ Navbar Fragment -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div class="card">
+        <h2>Mark Attendance</h2>
+
+        <form action="/mark-attendance" method="post">
+
+            <label>Select Student:</label>
+            <select name="studentId">
+                <option th:each="student : ${students}"
+                        th:value="${student.id}"
+                        th:text="${student.name}">
+                </option>
+            </select>
+
+            <br><br>
+
+            <label>Status:</label>
+            <select name="status">
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+            </select>
+
+            <br><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </div>
-
-<h2>Mark Attendance</h2>
-
-<form action="/mark-attendance" method="post">
-
-    <label>Select Student:</label>
-    <select name="studentId">
-        <option th:each="student : ${students}"
-                th:value="${student.id}"
-                th:text="${student.name}">
-        </option>
-    </select>
-
-    <br><br>
-
-    <label>Status:</label>
-    <select name="status">
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-    </select>
-
-    <br><br>
-
-    <button type="submit">Submit</button>
-</form>
 
 </body>
 </html>

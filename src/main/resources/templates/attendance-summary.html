@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Attendance Summary</title>
 
     <style>
         body {
             font-family: Arial;
-            margin: 40px;
+            margin: 0;
             background-color: #f4f4f4;
+        }
+
+        .container {
+            padding: 20px;
         }
 
         .card {
@@ -15,6 +21,7 @@
             padding: 20px;
             width: 300px;
             border-radius: 10px;
+            margin: auto;
         }
 
         h2 {
@@ -29,18 +36,17 @@
 
 <body>
 
-<div style="margin-bottom: 20px; font-size: 18px;">
-    <a href="/students-view" style="margin-right: 10px;">Students</a>
-    <a href="/mark-attendance" style="margin-right: 10px;">Mark Attendance</a>
-    <a href="/attendance-summary">Summary</a>
-</div>
+<!-- ✅ Navbar Fragment -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="card">
-    <h2>Attendance Summary</h2>
+<div class="container">
+    <div class="card">
+        <h2>Attendance Summary</h2>
 
-    <p>Total Present: <span th:text="${summary.totalPresent}"></span></p>
-    <p>Total Absent: <span th:text="${summary.totalAbsent}"></span></p>
-    <p>Percentage: <span th:text="${summary.percentage}"></span>%</p>
+        <p>Total Present: <span th:text="${summary.totalPresent}"></span></p>
+        <p>Total Absent: <span th:text="${summary.totalAbsent}"></span></p>
+        <p>Percentage: <span th:text="${summary.percentage}"></span>%</p>
+    </div>
 </div>
 
 </body>
