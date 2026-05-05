@@ -1,74 +1,197 @@
 # 📘 Attendance Management System
 
 ## Project Overview
-This is a full-stack web application built using Spring Boot to manage student attendance.  
-Admins can create, update, delete, and view student records through a web interface.
+
+This is a full-stack web application built using **Spring Boot** to manage student attendance in an organized and secure way.
+The system supports **role-based access control**, allowing admins to manage data while students can view attendance records.
+
+---
+
+## Key Features
+
+### Admin Features
+
+* Add new students
+* Update student details
+* Delete student records
+* Mark attendance (Present/Absent)
+* View attendance summary dashboard
+
+### Student Features
+
+* View student list
+* View attendance summary
+* Restricted from modifying data
+
+### Security Features
+
+* Login system using Spring Security
+* Role-Based Access Control (ADMIN / STUDENT)
+* Protected endpoints (backend security)
+* UI-based restriction (buttons hidden for unauthorized users)
+* Custom Access Denied page
+
+### Dashboard
+
+* Attendance summary displayed using:
+
+    * Total Present
+    * Total Absent
+    * Percentage
+* Clean card-based UI
+
+### UI/UX Improvements
+
+* Modern navigation bar (reusable fragment)
+* Card-based layouts
+* Clean and responsive design
+* Consistent styling across all pages
 
 ---
 
 ## Tech Stack
-- Java (Spring Boot)
-- Spring MVC Architecture
-- MySQL Database
-- Thymeleaf (Frontend)
-- Spring Data JPA (Hibernate)
-- Spring Security (basic setup)
+
+* **Backend:** Java, Spring Boot
+* **Architecture:** Spring MVC
+* **Database:** MySQL
+* **ORM:** Spring Data JPA (Hibernate)
+* **Frontend:** Thymeleaf
+* **Security:** Spring Security
+* **Build Tool:** Maven
 
 ---
 
-## Features
-- Add new students
-- View all students
-- Update student details
-- Delete student records
-- Web-based UI using Thymeleaf
-- RESTful API design
+## 📂 Project Structure
+
+controller → Handles HTTP requests
+service → Business logic
+repository → Database operations
+model → Entity classes
+config → Security & application configuration
+templates → Thymeleaf UI pages
+fragments → Reusable UI components
 
 ---
 
-## Project Structure
-controller → handles requests\
-service → business logic\
-repository → database operations\
-model → data entities\
-config → configurations
+## ⚙How to Run the Project
 
+### 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/your-username/attendance-management-system.git
+cd attendance-management-system
+```
 
 ---
 
-## How to Run the Project
+### 2️⃣ Configure Database
 
-1. Clone the repository: git clone https://github.com/your-username/attendance-management-system.git
-2. Open in IntelliJ / Eclipse
-3. Configure MySQL in `application.properties`
-4. Run the application
-5. Open browser: http://localhost:8080/students-view
+Update `application.properties`:
 
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/attendance_db
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+```
+
+---
+
+### 3️⃣ Build the Project
+
+```bash
+mvn clean package
+```
+
+---
+
+### 4️⃣ Run the Application
+
+```bash
+java -jar target/attendance-0.0.1-SNAPSHOT.jar
+```
+
+---
+
+### 5️⃣ Open in Browser
+
+```
+http://localhost:8080/students-view
+```
+
+---
+
+## Default Login Credentials
+
+| Role    | Username | Password   |
+| ------- | -------- | ---------- |
+| Admin   | admin    | admin123   |
+| Student | student  | student123 |
 
 ---
 
 ## Screenshots
-### Home Page
-![Home.png](screenshots/Home.png)
 
-### Edit Page
-![Edit.png](screenshots/Edit.png)
+### Login
+
+![Login](screenshots/Login.png)
+
+### Admin View
+
+![AdminView](screenshots/AdminView.png)
+
+### Edit Student
+
+![EditStudent](screenshots/EditStudent.png)
+
+### Attendance Summary
+
+![ViewSummary](screenshots/ViewSummary.png)
+![AttendanceDashboard](screenshots/AttendanceDashboard.png)
+
+### Mark Attendance
+
+![MarkAttendance](screenshots/MarkAttendance.png)
+
+### Student View
+
+![StudentView](screenshots/StudentView.png)
+
+### Logout
+
+![AccessDenied](screenshots/Logout.png)
 
 ---
 
-## Future Improvements
-- Add authentication (Admin/User roles)
-- Add attendance tracking
-- Improve UI with Bootstrap
+## 🧪 Demo Data
+
+The project includes sample students and attendance records for testing and demonstration purposes.
 
 ---
 
-## Author
+## 🔮 Future Improvements
 
-[Prathamesh Kakde](https://github.com/prathameshkakde)
+* Password encryption using BCrypt
+* Export attendance reports (PDF/Excel)
+* Pagination & search
+* REST API for external integrations
+* Deployment on cloud (AWS / Render)
 
 ---
 
-> ## Note
-> This project idea is inspired by an [article](https://www.geeksforgeeks.org/blogs/java-projects/#:~:text=3.%20Attendance%20Management%20System) from [GeeksforGeeks](https://www.geeksforgeeks.org/).
+## 👨‍💻 Author
+
+**Prathamesh Kakde**
+🔗 https://github.com/prathameshkakde
+
+---
+
+## 📌 Note
+
+This project was initially inspired by an article from GeeksforGeeks, but has been significantly enhanced with:
+
+* Role-based security
+* Full-stack architecture
+* Modern UI/UX improvements
+
 ---
