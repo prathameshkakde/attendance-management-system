@@ -6,35 +6,60 @@
 
     <style>
         body {
-            font-family: Arial;
-            margin: 40px;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Arial;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
         }
 
         h2 {
             color: #333;
         }
 
-        form {
+        .card {
+            background: white;
+            padding: 20px;
             margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         input {
-            padding: 8px;
+            padding: 10px;
             margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         button {
-            padding: 8px 12px;
+            padding: 8px 14px;
             border: none;
-            background-color: #007BFF;
-            color: white;
+            border-radius: 5px;
             cursor: pointer;
-            margin-right: 5px;
         }
 
-        button:hover {
+        .btn-primary {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .btn-primary:hover {
             background-color: #0056b3;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: red;
+            color: white;
         }
 
         table {
@@ -44,8 +69,9 @@
         }
 
         th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
         }
 
         th {
@@ -53,80 +79,83 @@
             color: white;
         }
 
-        a button:hover {
-            background-color: #1e7e34;
+        tr:hover {
+            background-color: #f1f1f1;
         }
 
-        .delete-btn {
-            background-color: red;
-        }
-
-        .edit-btn {
-            display: inline-block;
-            padding: 8px 12px;
-            background-color: #28a745;
+        .navbar {
+            background: #007BFF;
+            padding: 15px;
             color: white;
-            text-decoration: none;
-            margin-right: 5px;
         }
 
-        .edit-btn:hover {
-            background-color: #1e7e34;
+        .navbar a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
 
-<div style="margin-bottom: 20px; font-size: 18px;">
-    <a href="/students-view" style="margin-right: 10px;">Students</a>
+<div class="navbar">
+    <a href="/students-view">Students</a>
+
     <span sec:authorize="hasRole('ADMIN')">
-        <a href="/mark-attendance" style="margin-right: 10px;">Mark Attendance</a>
+        <a href="/mark-attendance">Mark Attendance</a>
     </span>
+
     <a href="/attendance-summary">Summary</a>
 </div>
 
-<div sec:authorize="hasRole('ADMIN')">
+<div class="container">
 
-    <h2>Add Student</h2>
+    <div class="card" sec:authorize="hasRole('ADMIN')">
+        <h2>Add Student</h2>
 
-    <form action="/students/add" method="post">
-        <input type="text" name="name" placeholder="Enter name" required />
-        <input type="email" name="email" placeholder="Enter email" required />
-        <button type="submit">Add</button>
-    </form>
+        <form action="/students/add" method="post">
+            <input type="text" name="name" placeholder="Enter name" required />
+            <input type="email" name="email" placeholder="Enter email" required />
+            <button class="btn-primary" type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Students List</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th sec:authorize="hasRole('ADMIN')">Action</th>
+            </tr>
+
+            <tr th:each="student : ${students}">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.email}"></td>
+
+                <td sec:authorize="hasRole('ADMIN')">
+
+                    <a th:href="@{'/students/edit/' + ${student.id}}">
+                        <button class="btn-success">Edit</button>
+                    </a>
+
+                    <form th:action="@{'/students/delete/' + ${student.id}}"
+                          method="post"
+                          style="display:inline;">
+                        <button class="btn-danger">Delete</button>
+                    </form>
+
+                </td>
+            </tr>
+        </table>
+    </div>
 
 </div>
-
-<hr>
-
-<h2>Students List</h2>
-
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th sec:authorize="hasRole('ADMIN')">Action</th>
-    </tr>
-
-    <tr th:each="student : ${students}">
-        <td th:text="${student.id}"></td>
-        <td th:text="${student.name}"></td>
-        <td th:text="${student.email}"></td>
-        <td sec:authorize="hasRole('ADMIN')">
-            <a th:href="@{'/students/edit/' + ${student.id}}">
-                <button>Edit</button>
-            </a>
-
-            <form th:action="@{'/students/delete/' + ${student.id}}"
-                  method="post"
-                  style="display:inline;">
-                <button class="delete-btn" type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-</table>
 
 </body>
 </html>
